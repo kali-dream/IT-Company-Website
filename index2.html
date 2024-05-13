@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <header class="site-header">
+        <div class="menu-items">
+            <div class="menu-item"><img src="Screenshot 2024-04-01 at 5.44 1.png" alt="Logo"></div>
+            <div class="menu-item" data-section="home">Home</div>
+            <div class="menu-item" data-section="about">About</div>
+            <div class="menu-item" data-section="services">Service</div>
+            <div class="menu-item" data-section="pricing">Pricing</div>
+        </div>
+        <div class="contact-button">
+            <div>Get In Touch</div>
+            <div class="icon-placeholder"><img src="raphael_connect.png" alt="Connect Icon"></div>
+        </div>
+    </header>
+
+    <main>
+        <section id="contact" class="full-viewport-section">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <form id="contactForm" action="submit.php" method="POST">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required><br><br>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required><br><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                    <label for="service">Service:</label>
+                    <select id="service" name="service" required>
+                        <option value="web-development">Web Development</option>
+                        <option value="ui-ux">UI/UX</option>
+                        <option value="seo">SEO</option>
+                        <option value="marketing">Marketing</option>
+                    </select><br><br>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" rows="4" required></textarea><br><br>
+                    <button type="button" id="submitBtn">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div id="dialogBox" class="dialog-box">
+        <div class="dialog-content" id="dialogContent"></div>
+    </div>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    }
+
+    const menuItems = document.querySelectorAll(".menu-item");
+
+    menuItems.forEach(function(menuItem) {
+        menuItem.addEventListener("click", function() {
+            let sectionId;
+            switch (menuItem.innerText.toLowerCase()) {
+                case "home":
+                    // Navigate to index.html instead of scrolling
+                    window.location.href = "index.html";
+                    break;
+                    case "aboutMenuItem":
+                    sectionId = "About";
+                    break;
+                case "servicesMenuItem":
+                    sectionId = "services";
+                    break;
+                case "pricingMenuItem":
+                    sectionId = "pricing"; // Assuming there's a pricing section
+                    break;
+                default:
+                    sectionId = "home"; // Default to home if no matching section found
+            }
+
+            // Scroll to the section if it's not the "Home" menu item
+            if (sectionId !== "home") {
+                scrollToSection(sectionId);
+            }
+        });
+    });
+
+    const getInTouchButton = document.querySelector(".contact-button");
+    getInTouchButton.addEventListener("click", function() {
+        window.location.href = "index2.html";
+    });
+
+    // Form submission handling
+    document.getElementById("submitBtn").addEventListener("click", function() {
+        var xhr = new XMLHttpRequest();
+        var formData = new FormData(document.getElementById("contactForm"));
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        showDialog(response.firstName, response.email);
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                } else {
+                    alert("Error: Unable to process the request.");
+                }
+            }
+        };
+
+        xhr.open("POST", "submit.php", true);
+        xhr.send(formData);
+    });
+
+    // Function to navigate to index.html when Home is clicked
+    document.getElementById("homeMenuItem").addEventListener("click", function() {
+        window.location.href = "index.html";
+    });
+
+    function showDialog(firstName, email) {
+        var dialogContent = "<p>Thank you for your message, " + firstName + "!</p>";
+        dialogContent += "<p>We have received your message:</p>";
+        dialogContent += "<ul>";
+        dialogContent += "<li><strong>Email:</strong> " + email + "</li>";
+        dialogContent += "</ul>";
+        dialogContent += "<p>We will get back to you as soon as possible.</p>";
+        dialogContent += "<button onclick='closeDialog()'>Return</button>";
+
+        document.getElementById("dialogContent").innerHTML = dialogContent;
+        document.getElementById("dialogBox").style.display = "block";
+    }
+    
+    function closeDialog() {
+        document.getElementById("dialogBox").style.display = "none";
+    }
+});
+
+    </script>
+    
+</body>
+</html>

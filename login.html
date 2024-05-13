@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Navigation Example</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="menu-items">
+            <div class="logo"><img src="Screenshot 2024-04-01 at 5.44 1.png" alt="Logo"></div>
+            <div class="menu-item active">Home</div>
+            <div class="menu-item">About</div>
+            <div class="menu-item">Service</div>
+            <div class="menu-item">Pricing</div>
+        </div>
+        <div class="contact-button">
+            <div>Get In Touch</div>
+            <div class="icon-placeholder"><img src="raphael_connect.png" alt="Connect Icon"></div>
+        </div>
+        
+    </header>
+    
+    
+    <main>
+        <section id="signup" class="full-viewport-section">
+            <div class="container">
+                <form id="signupForm" action="login.php" method="POST">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br><br>
+                    <button type="submit" >login</button><br>
+                    
+                </form>
+                <h3 id="newUser">New user ?</h3>
+                <a href="signup.html"><button id="login">Sign Up</button></a>
+                
+                <div id="successDialog" class="dialog">
+                    <p>New record created successfully</p>
+                    <button id="okButton">OK</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
+    
+</body>
+</html>
+ 
